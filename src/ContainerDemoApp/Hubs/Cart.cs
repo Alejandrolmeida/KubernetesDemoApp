@@ -11,13 +11,14 @@ namespace ContainerDemoApp.Hubs
 {
     public class Cart : Hub
     {
-        private const string CONN = "Data Source=<k8s-sql-service-IP>,1433;Initial Catalog=snoopyshoppingcart;Persist Security Info=True;User ID=sa;Password=Password1234;";
+        private const string CONN = "Data Source=localhost,1433;Initial Catalog=snoopyshoppingcart;Persist Security Info=True;User ID=sa;Password=UGFzc3dvcmQxMjM0;";
         public static List<IncomingRequest> ConnectedIPs;
 
         public async Task Send()
         {
             //await Clients.All.messageReceived(ConnectedIPs.First().ToString());
-            await Clients.Client(Context.ConnectionId).messageReceived(GenerateResponse());
+            //await Clients.Client(Context.ConnectionId).messageReceived(GenerateResponse());
+            await Clients.Client(Context.ConnectionId).SendAsync("enviar");
         }
 
         public void Connect(string IP, string CartItem)

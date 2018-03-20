@@ -32,7 +32,7 @@ namespace ContainerDemoApp
             services.AddMvc();
             services.AddSignalR(options =>
             {
-                options.Hubs.EnableDetailedErrors = true;
+                //options.Hubs.EnableDetailedErrors = true;
             });
         }
 
@@ -62,7 +62,11 @@ namespace ContainerDemoApp
             });
 
             app.UseWebSockets();
-            app.UseSignalR();
+            
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<Cart>("/cart");
+            });
         }
     }
 }
